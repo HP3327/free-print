@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>简单三步，免费打印 · 小沉淀校园助手</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background:#f4f1ee; font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; color:#2b2f3a; -webkit-font-smoothing:antialiased; }
+  img { max-width:100% !important; height:auto !important; display:block; }
+  .wrap { max-width:680px; margin:0 auto; background:#fff; min-height:100vh; padding-bottom:30px; box-shadow:0 0 40px rgba(0,0,0,.05); }
+  .sec { padding:20px 18px; }
+  .shadow { box-shadow:0 6px 18px rgba(242,84,45,.10); }
+
+  /* 吸顶导航 */
+  .topnav { position:sticky; top:0; z-index:50; background:rgba(255,255,255,.96); backdrop-filter:blur(8px); padding:9px 10px; border-bottom:1px solid #fff0e8; }
+  .tn-inner { display:flex; gap:8px; max-width:680px; margin:0 auto; }
+  .tn-inner button { flex:1; border:1.5px solid #ffd9c9; background:#fff7f3; color:#f2542d; font-size:13px; font-weight:800; padding:9px 4px; border-radius:999px; transition:all .15s; }
+  .tn-inner button:active { background:#ff6a3c; color:#fff; transform:scale(.97); }
+
+  /* HERO */
+  .hero { position:relative; background:linear-gradient(150deg,#ff7a45 0%,#f2542d 55%,#e24200 100%); color:#fff; border-radius:0 0 26px 26px; padding:30px 18px 28px; text-align:center; overflow:hidden; }
+  .hero::after { content:""; position:absolute; right:-40px; top:-40px; width:160px; height:160px; background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%); border-radius:50%; }
+  .hero-badge { width:84px; height:84px; margin:0 auto 14px; background:rgba(255,255,255,.16); border:2px solid rgba(255,255,255,.5); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:42px; line-height:1; }
+  .hero h1 { margin:0; font-size:30px; font-weight:900; letter-spacing:1px; text-shadow:0 2px 8px rgba(0,0,0,.18); }
+  .hero .sub { margin:12px 0 0; font-size:14px; opacity:.95; line-height:1.7; font-weight:500; }
+  .tags { margin-top:16px; }
+  .tag { display:inline-block; background:#fff; color:#f2542d; font-size:13px; font-weight:800; padding:6px 15px; border-radius:999px; margin:5px 4px 0; box-shadow:0 3px 8px rgba(0,0,0,.12); }
+
+  /* 章节标题 */
+  [id^="s-"] { scroll-margin-top:56px; }
+  h2.sec-t { display:inline-block; background:linear-gradient(135deg,#ff7a45,#f2542d); color:#fff; font-size:17px; font-weight:800; padding:7px 18px; border-radius:999px; margin:0 0 14px; box-shadow:0 4px 10px rgba(242,84,45,.25); }
+  .lead { font-size:15px; line-height:1.95; color:#444; margin:0; }
+  .lead b { color:#E24200; }
+
+  /* 玩法一句话：巨型数字钩子 */
+  .hook { background:linear-gradient(135deg,#fff7f2,#fff0e8); border:2px dashed #ffb596; border-radius:18px; padding:22px 18px; text-align:center; }
+  .hook .big { font-size:15px; color:#8a3e00; line-height:1.9; margin:0; }
+  .hook .num { font-size:46px; font-weight:900; color:#f2542d; line-height:1.15; margin:8px 0 2px; letter-spacing:1px; }
+  .hook .num small { font-size:20px; font-weight:800; }
+  .hook .note { font-size:13px; color:#b06a3a; margin-top:6px; }
+
+  /* 三步 */
+  .steps { display:flex; flex-direction:column; gap:12px; margin:4px 0; }
+  .step { display:flex; gap:14px; align-items:center; background:#fff; border:1px solid #ffe3d6; border-radius:16px; padding:16px 14px; box-shadow:0 4px 14px rgba(242,84,45,.07); }
+  .step .ic { flex:0 0 46px; width:46px; height:46px; border-radius:14px; background:linear-gradient(135deg,#fff1ea,#ffe0d2); display:flex; align-items:center; justify-content:center; font-size:26px; line-height:1; }
+  .step .n { flex:0 0 30px; width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,#ff6a3c,#f2542d); color:#fff; font-weight:900; font-size:16px; display:flex; align-items:center; justify-content:center; }
+  .step .t { font-size:15px; line-height:1.85; color:#333; }
+  .step .t b { color:#E24200; }
+  .step .body { flex:1; }
+  .step .body .row { display:flex; align-items:center; gap:10px; }
+
+  /* 三张示例图 */
+  .tri { display:flex; gap:8px; margin:16px 0 4px; }
+  .tri figure { flex:1; margin:0; text-align:center; }
+  .tri .frame { position:relative; border:2px solid #ffe3d6; border-radius:12px; overflow:hidden; background:#fafafa; }
+  .tri img { width:100%; border-radius:10px; cursor:pointer; transition:transform .12s; }
+  .tri img:active { transform:scale(.97); }
+  .tri .frame::after { content:"🔍"; position:absolute; top:5px; right:5px; width:24px; height:24px; line-height:24px; text-align:center; background:rgba(255,106,60,.92); border-radius:50%; font-size:13px; color:#fff; pointer-events:none; }
+  .tri figcaption { font-size:12px; color:#999; margin-top:7px; }
+
+  /* 规则卡片 */
+  .card { background:#fafaf7; border-left:4px solid #FF5A00; border-radius:12px; padding:14px 16px; margin:12px 0; }
+  .card.green { background:#EAF5EE; border-left-color:#278052; }
+  .card.amber { background:#FFF5E9; border-left-color:#FF9A3C; }
+  .rules p { margin:8px 0; font-size:15px; line-height:2; color:#8A3E00; }
+  .rules p b { color:#E24200; }
+
+  /* 客服 */
+  .kefu { text-align:center; background:linear-gradient(135deg,#fff7f2,#ffeede); border:2px solid #ffd9c9; border-radius:18px; padding:20px 16px; }
+  .kefu .lead { font-size:14px; color:#7a5238; }
+  .kefu-img { width:56%; max-width:210px; margin:14px auto 0; border-radius:14px; border:3px solid #fff; box-shadow:0 6px 18px rgba(0,0,0,.14); cursor:pointer; }
+  .kefu .tip { font-size:13px; color:#c08a60; margin-top:10px; }
+
+  /* 结尾主张 */
+  .end { background:linear-gradient(135deg,#E24200,#FF5A00); color:#fff; border-radius:18px; padding:24px 18px; text-align:center; box-shadow:0 8px 22px rgba(226,66,0,.3); }
+  .end .big { font-size:22px; font-weight:900; line-height:1.6; }
+  .end .sub { font-size:13px; color:#FFE3CC; margin-top:10px; line-height:1.7; }
+  .hash { text-align:center; color:#f2542d; font-size:14px; font-weight:700; margin:16px 0 6px; }
+  .foot { text-align:center; font-size:12px; color:#aaa; line-height:1.8; padding:8px 18px 16px; }
+
+  /* lightbox */
+  .lb { position:fixed; inset:0; background:rgba(0,0,0,.92); display:none; align-items:center; justify-content:center; flex-direction:column; z-index:999; padding:24px; }
+  .lb.show { display:flex; }
+  .lb img { width:78vw; max-width:360px; max-height:64vh; background:#fff; border-radius:14px; padding:14px; -webkit-touch-callout:default; }
+  .lb .lb-tip { color:#fff; font-size:15px; margin-top:18px; text-align:center; line-height:1.7; opacity:.92; max-width:80vw; }
+  .lb .lb-close { position:absolute; top:16px; right:22px; color:#fff; font-size:34px; line-height:1; }
+  .lb .lb-save { margin-top:16px; background:#ff6a3c; color:#fff; border:none; font-size:15px; font-weight:800; padding:11px 28px; border-radius:999px; }
+  .lb .lb-save:active { background:#f2542d; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topnav"><div class="tn-inner">
+    <button data-go="how">玩法</button>
+    <button data-go="steps">三步</button>
+    <button data-go="rules">规则</button>
+    <button data-go="kefu">客服</button>
+  </div></div>
+
+  <div class="hero">
+    <div class="hero-badge">🖨️</div>
+    <h1>简单三步，免费打印</h1>
+    <p class="sub">打印费原路退回 · 领券下单 → 发两张截图 → 退回</p>
+    <div class="tags">
+      <span class="tag">点外卖</span><span class="tag">打车</span><span class="tag">看电影</span><span class="tag">住酒店</span>
+    </div>
+  </div>
+
+  <section class="sec" id="s-how">
+    <h2 class="sec-t">玩法一句话</h2>
+    <div class="hook shadow">
+      <p class="big">点外卖、打车、看电影、住酒店前，先从我们的链接领券下单，再把两张截图发到公众号。</p>
+      <div class="num">每满 10<small> 元</small> 退 1<small> 页</small></div>
+      <div class="note">核实通过，打印费按单原路退回 · 多单可合并，上不封顶</div>
+    </div>
+  </section>
+
+  <section class="sec" id="s-steps">
+    <h2 class="sec-t">参与方式，就三步</h2>
+    <div class="steps">
+      <div class="step"><div class="ic">🎫</div><div class="body"><div class="row"><div class="n">1</div><div class="t"><b>领券下单</b></div></div><div class="t" style="margin-top:4px">通过我们的专属链接领券，和平时一样下单；</div></div></div>
+      <div class="step"><div class="ic">📸</div><div class="body"><div class="row"><div class="n">2</div><div class="t"><b>发两张截图</b></div></div><div class="t" style="margin-top:4px">把<b>消费截图 + 打印支付截图</b>发到公众号（缺一张无法核对）；</div></div></div>
+      <div class="step"><div class="ic">↩️</div><div class="body"><div class="row"><div class="n">3</div><div class="t"><b>原路退回</b></div></div><div class="t" style="margin-top:4px">核实通过，打印费按单原路退回，爽快无套路。</div></div></div>
+    </div>
+    <div class="tri">
+      <figure><div class="frame"><img src="img0.jpg" data-type="shot" alt="对话框发截图示例"></div><figcaption>① 对话框发截图</figcaption></figure>
+      <figure><div class="frame"><img src="img1.jpg" data-type="shot" alt="消费截图示例"></div><figcaption>② 消费截图</figcaption></figure>
+      <figure><div class="frame"><img src="img2.jpg" data-type="shot" alt="打印支付截图"></div><figcaption>③ 打印支付截图</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="sec" id="s-rules">
+    <h2 class="sec-t">规则说明</h2>
+    <div class="card amber rules shadow">
+      <p>· 按<b>消费截图内的金额</b>，每满 10 元减免打印 1 页；</p>
+      <p>· 未满 10 元按 10 元结算；订单编号仅可用一次；</p>
+      <p>· 多单可合并，上不封顶；爽快推广，没有套路，直接退回。</p>
+    </div>
+    <div class="card green shadow">
+      <p class="lead" style="color:#1E5E3C"><b>安全说明：</b>所有优惠链接均为各平台官方链接，不含病毒，不采集任何个人信息。校内设备与小程序均已备案，退费由我们直接执行，请放心点击。</p>
+    </div>
+  </section>
+
+  <section class="sec" id="s-kefu">
+    <h2 class="sec-t">专属客服微信</h2>
+    <div class="kefu shadow">
+      <p class="lead">现有链接没有您需要的？添加专属客服微信，为您提供更及时的校园服务和省钱情报。</p>
+      <img class="kefu-img" src="img3.jpg" data-type="wechat" alt="专属客服微信名片">
+      <p class="tip">点击名片放大 → 长按识别添加微信</p>
+    </div>
+  </section>
+
+  <div class="sec">
+    <div class="end">
+      <div class="big">每满 10 元退 1 页<br>多单可合并，上不封顶</div>
+      <div class="sub">按每天 1 单算，一年约抵 100 元打印费</div>
+    </div>
+    <div class="hash">#校园打印 #省钱攻略 #小沉淀校园助手</div>
+    <div class="foot">活动最终解释权在规则范围内由本公众号所有 · 如有疑问请通过公众号对话框联系我们</div>
+  </div>
+
+</div>
+
+<div class="lb" id="lb">
+  <div class="lb-close" id="lbClose">×</div>
+  <img id="lbImg" src="" alt="图片">
+  <div class="lb-tip" id="lbTip"></div>
+  <button class="lb-save" id="lbSave">保存图片</button>
+</div>
+
+<script>
+  (function(){
+    var lb = document.getElementById('lb');
+    var lbImg = document.getElementById('lbImg');
+    var lbTip = document.getElementById('lbTip');
+    var imgs = document.querySelectorAll('.wrap img');
+    for (var i = 0; i < imgs.length; i++){
+      imgs[i].addEventListener('click', function(){
+        var type = this.getAttribute('data-type');
+        lbImg.src = this.src;
+        if (type === 'wechat'){
+          lbTip.innerHTML = '长按上方名片 → 点「识别二维码 / 添加微信」<br>或点下方按钮保存图片，用微信「扫一扫」从相册识别';
+        } else {
+          lbTip.innerHTML = '点击查看大图，可长按保存留底<br>对照示例准备您的两张截图';
+        }
+        lb.classList.add('show');
+      });
+    }
+    function closeLb(){ lb.classList.remove('show'); }
+    document.getElementById('lbClose').addEventListener('click', closeLb);
+    lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
+    document.getElementById('lbSave').addEventListener('click', function(e){ e.stopPropagation(); window.location.href = lbImg.src; });
+    var navBtns = document.querySelectorAll('.topnav button');
+    for (var k = 0; k < navBtns.length; k++){
+      navBtns[k].addEventListener('click', function(){
+        var el = document.getElementById('s-' + this.getAttribute('data-go'));
+        if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+      });
+    }
+  })();
+</script>
+</body>
+</html>
